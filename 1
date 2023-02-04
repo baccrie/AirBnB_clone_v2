@@ -61,10 +61,10 @@ class HBNBCommand(cmd.Cmd):
                 para.pop(0)
                 for i in para:
                     tmp = i.split('=')
-                    key = tmp[0]
+                    key = tmp[0].replace('/', '')
+                    key = key.replace(' ', '_')
                     val = tmp[1].replace('/', '')
-                    val = val.replace('_', ' ')
-                    val = eval(val)
+                    val = val.replace(' ', '_')
                     setattr(new, key, val)
                 new.save()
                 print(new.id)
