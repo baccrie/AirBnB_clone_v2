@@ -56,12 +56,26 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-    def delete(self, obj=None):
-        """Delete a given object from __objects, if it exists."""
+    """def delete(self, obj=None):
+        Delete a given object from __objects, if it exists.
         try:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):
+            pass"""
+
+    def delete(self, obj=None):
+        """Add a new public instance method
+        to delete obj from __objects if it’s
+        inside - if obj is equal to None, the
+        method should not do anything"""
+        if not obj:
             pass
+        else:
+            key = f"{type(obj).__name__}.{obj.id}"
+            for k in self.__objects.keys():
+                if key == k:
+                    del self.__objects[k]
+                    return
 
     def close(self):
         """Call the reload method."""
