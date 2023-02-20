@@ -40,10 +40,10 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def do_create(self, line):
-        """Usage: create <class> <key 1>=<value 2> <key 2>=<value 2> ...
+    """def do_create(self, line):
+        Usage: create <class> <key 1>=<value 2> <key 2>=<value 2> ...
         Create a new class instance with given keys/values and print its id.
-        """
+        
         try:
             if not line:
                 raise SyntaxError()
@@ -72,7 +72,31 @@ class HBNBCommand(cmd.Cmd):
         except SyntaxError:
             print("** class name missing **")
         except NameError:
-            print("** class doesn't exist **")
+            print("** class doesn't exist **")"""
+
+    def do_create(self, line):
+        """a method that Creates a new instance
+        of BaseModel or it sub-class, and saves it (to the JSON file)
+        """
+        if not line:
+            print("** class name missing **")
+        else:
+            arg = line.split(' ')
+            if arg[0] not in self.classes.keys():
+                print("** class doesn't exist **")
+            else:
+                arg = line.split(' ')
+                command = f"{arg[0]}()"
+                new = eval(command)
+                new.save()
+                print(new.id)
+
+                arg.pop(0)
+                for i in arg:
+                    val = i.split('=')
+                    key = val[0]
+                    value = val[1].replace('_', ' ')
+                    setattr(new, key, eval(value))
 
     def do_show(self, line):
         """Prints the string representation of an instance
