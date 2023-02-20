@@ -82,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             arg = line.split(' ')
-            if arg[0] not in self.classes.keys():
+            if arg[0] not in self.__classes:
                 print("** class doesn't exist **")
             else:
                 arg = line.split(' ')
